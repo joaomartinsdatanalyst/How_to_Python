@@ -9,6 +9,6 @@ df_filtrado = df[df['nome_da_coluna'] condição]
   ex04: Filtrar por valores que NÃO estão em uma lista
     df_filtrado = df[~df['cidade'].isin(['São Paulo', 'Rio de Janeiro'])]
 
-#Filtrar um DataFrame em Python com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
+#Como filtrar um DataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
 hoje = datetime.now()
 df_filtrado = df[pd.to_datetime(df['data'], format='%d/%m/%Y') >= hoje]
