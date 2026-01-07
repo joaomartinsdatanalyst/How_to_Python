@@ -8,7 +8,12 @@ df_filtrado = df[df['nome_da_coluna'] condição]
     df_filtrado = df[df['cidade'].isin(['São Paulo', 'Rio de Janeiro'])]
   ex04: Filtrar por valores que NÃO estão em uma lista
     df_filtrado = df[~df['cidade'].isin(['São Paulo', 'Rio de Janeiro'])]
+ex05: Filtrar por index
+  linhas_filtradas = df[df.index > 1]
 
-#Como filtrar um DataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
+#Como filtrar um dataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
 hoje = datetime.now()
 df_filtrado = df[pd.to_datetime(df['data'], format='%d/%m/%Y') >= hoje]
+
+#Como resetar index do dataframe
+df_resetado = df.reset_index()
