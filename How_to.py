@@ -17,3 +17,6 @@ df_filtrado = df[pd.to_datetime(df['data'], format='%d/%m/%Y') >= hoje]
 
 #Como resetar index do dataframe
 df_resetado = df.reset_index()
+
+#Como deletar o ultimo item de um lista
+del minha_lista[-1]  # Remove o último item
