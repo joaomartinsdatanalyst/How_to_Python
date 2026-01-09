@@ -1,4 +1,4 @@
-#Como filtrar um dataframe de acordo com um critério de uma coluna específica.
+->Como filtrar um dataframe de acordo com um critério de uma coluna específica.
 df_filtrado = df[df['nome_da_coluna'] condição]
   ex01: Filtrar por igualdade
     df_filtrado = df[df['cidade'] == 'São Paulo']
@@ -11,17 +11,17 @@ df_filtrado = df[df['nome_da_coluna'] condição]
 ex05: Filtrar por index
   linhas_filtradas = df[df.index > 1]
 
-#Como filtrar um dataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
+->Como filtrar um dataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
 hoje = datetime.now()
 df_filtrado = df[pd.to_datetime(df['data'], format='%d/%m/%Y') >= hoje]
 
-#Como resetar index do dataframe
+->Como resetar index do dataframe
 df_resetado = df.reset_index()
 
-#Como deletar o ultimo item de um lista
+->Como deletar o ultimo item de um lista
 del minha_lista[-1]  # Remove o último item
 
-#Como remover acentos
+->Como remover acentos
 def tratar_nome(text):
     dict_accents = {
         'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a', 'Á': 'A', 'À': 'A', 'Ã': 'A', 'Â': 'A', 'Ä': 'A',
@@ -40,3 +40,109 @@ def tratar_nome(text):
     
     # Remover espaços extras e converter para maiúsculas
     return text.strip().upper()
+
+->Filtra trechos de texto com base em palavras-chave de início e delimitadores associados
+import openpyxl
+
+# Função para filtrar trechos com base em palavras-chave de início e delimitadores associados
+def filtrar_trechos_associados(arquivo_txt, associacoes):
+    """
+    Filtra trechos de texto com base em palavras-chave de início e delimitadores associados.
+
+    :parametro arquivo_txt: Caminho do arquivo de texto.
+    :parametro associacoes: Dicionário onde cada palavra-chave de início está associada a uma lista de delimitadores.
+                        Exemplo: {"CADASTRO:": ["Concluído"], "CADASTRO": ["Iniciado"]}
+    :return: Lista de trechos filtrados.
+    """
+    trechos_filtrados = []
+    with open(arquivo_txt, 'r', encoding='utf-8') as arquivo:
+        for linha in arquivo:
+            while True:
+                # Identifica a palavra-chave de início mais próxima
+                inicio_idx = -1
+                palavra_inicio_encontrada = None
+                delimitadores_validos = []
+
+                for palavra_inicio, delimitadores in associacoes.items():
+                    idx = linha.find(palavra_inicio)
+                    if idx != -1 and (inicio_idx == -1 or idx < inicio_idx):
+                        inicio_idx = idx
+                        palavra_inicio_encontrada = palavra_inicio
+                        delimitadores_validos = delimitadores
+
+                # Se nenhuma palavra-chave de início for encontrada, pare o loop
+                if inicio_idx == -1:
+                    break
+
+                # Corta a linha a partir da palavra-chave de início encontrada
+                linha = linha[inicio_idx:]
+
+                # Identifica o delimitador de fim mais próximo, considerando apenas os delimitadores associados
+                fim_idx = -1
+                for delimitador in delimitadores_validos:
+                    idx = linha.find(delimitador)
+                    if idx != -1 and (fim_idx == -1 or idx < fim_idx):
+                        fim_idx = idx + len(delimitador)  # Inclui o delimitador no trecho
+
+                # Se nenhum delimitador válido for encontrado, pare o loop
+                if fim_idx == -1:
+                    break
+
+                # Extrai o trecho completo e adiciona à lista
+                trecho = linha[:fim_idx]
+                trechos_filtrados.append(trecho.strip())
+
+                # Remove o trecho processado da linha para continuar buscando
+                linha = linha[fim_idx:]
+
+    return trechos_filtrados
+
+# Exemplo de uso do script
+if __name__ == "__main__":
+    # Caminhos dos arquivos
+    arquivo_txt = r"C:\\caminho\\para\\seu_arquivo.txt"
+
+    # Associação de palavras-chave de início com seus delimitadores válidos
+    associacoes = {
+        "CADASTRO DE:": ["CONCLUIDO"],
+        "CADASTRO ": ["INICIADO"]
+    }
+
+    # Etapas do processo
+    trechos_filtrados = filtrar_trechos_associados(arquivo_txt, associacoes)
+
+->Como exportar uma lista para uma planilha de Excel sendo cada item uma linha
+
+import openpyxl
+
+# Função genérica para exportar os trechos para uma planilha Excel
+def exportar_para_planilha(trechos, arquivo_excel, titulo_planilha="Trechos Filtrados"):
+    """
+    Exporta uma lista de trechos para uma planilha Excel.
+
+    :param trechos: Lista de trechos a serem exportados.
+    :param arquivo_excel: Caminho do arquivo Excel de saída.
+    :param titulo_planilha: Título da planilha (opcional).
+    """
+    # Criar um novo workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = titulo_planilha
+
+    # Adiciona os trechos na planilha
+    for i, trecho in enumerate(trechos, start=1):
+        sheet.cell(row=i, column=1, value=trecho)
+
+    # Salva o arquivo Excel
+    workbook.save(arquivo_excel)
+  
+# Exemplo de uso do script
+if __name__ == "__main__":
+    # Caminhos dos arquivos
+    arquivo_excel = r"C:\\caminho\\para\\saida.xlsx"
+
+    # Etapas do processo
+    trechos_filtrados = []
+    exportar_para_planilha(trechos_filtrados, arquivo_excel)
+
+    print("Processo concluído! Os trechos filtrados foram exportados para o Excel.")
