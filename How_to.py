@@ -20,3 +20,23 @@ df_resetado = df.reset_index()
 
 #Como deletar o ultimo item de um lista
 del minha_lista[-1]  # Remove o último item
+
+#Como remover acentos
+def tratar_nome(text):
+    dict_accents = {
+        'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a', 'Á': 'A', 'À': 'A', 'Ã': 'A', 'Â': 'A', 'Ä': 'A',
+        'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e', 'É': 'E', 'È': 'E', 'Ê': 'E', 'Ë': 'E',
+        'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i', 'Í': 'I', 'Ì': 'I', 'Î': 'I', 'Ï': 'I',
+        'ó': 'o', 'ò': 'o', 'õ': 'o', 'ô': 'o', 'ö': 'o', 'Ó': 'O', 'Ò': 'O', 'Õ': 'O', 'Ô': 'O', 'Ö': 'O',
+        'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u', 'Ú': 'U', 'Ù': 'U', 'Û': 'U', 'Ü': 'U',
+        'ç': 'c', 'Ç': 'C',
+        'ñ': 'n', 'Ñ': 'N',
+        'ý': 'y', 'ÿ': 'y', 'Ý': 'Y', 'Ÿ': 'Y'
+    }
+
+    # Substituir os caracteres acentuados por suas versões sem acento
+    for char, replacement in dict_accents.items():
+        text = text.replace(char, replacement)
+    
+    # Remover espaços extras e converter para maiúsculas
+    return text.strip().upper()
