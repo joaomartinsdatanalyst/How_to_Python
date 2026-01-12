@@ -1,4 +1,4 @@
-->Como filtrar um dataframe de acordo com um critério de uma coluna específica.
+->Python:Como filtrar um dataframe de acordo com um critério de uma coluna específica.
 df_filtrado = df[df['nome_da_coluna'] condição]
   ex01: Filtrar por igualdade
     df_filtrado = df[df['cidade'] == 'São Paulo']
@@ -11,17 +11,17 @@ df_filtrado = df[df['nome_da_coluna'] condição]
 ex05: Filtrar por index
   linhas_filtradas = df[df.index > 1]
 
-->Como filtrar um dataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
+->Python:Como filtrar um dataFrame com base em uma coluna de strings que contém datas no formato "dd/mm/yyyy", mantendo a formatação original
 hoje = datetime.now()
 df_filtrado = df[pd.to_datetime(df['data'], format='%d/%m/%Y') >= hoje]
 
-->Como resetar index do dataframe
+->Python:Como resetar index do dataframe
 df_resetado = df.reset_index()
 
-->Como deletar o ultimo item de um lista
+->Python:Como deletar o ultimo item de um lista
 del minha_lista[-1]  # Remove o último item
 
-->Como remover acentos
+->Python:Como remover acentos
 def tratar_nome(text):
     dict_accents = {
         'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a', 'Á': 'A', 'À': 'A', 'Ã': 'A', 'Â': 'A', 'Ä': 'A',
@@ -41,7 +41,7 @@ def tratar_nome(text):
     # Remover espaços extras e converter para maiúsculas
     return text.strip().upper()
 
-->Filtra trechos de texto com base em palavras-chave de início e delimitadores associados
+->Python:Filtra trechos de texto com base em palavras-chave de início e delimitadores associados
 import openpyxl
 
 # Função para filtrar trechos com base em palavras-chave de início e delimitadores associados
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     # Etapas do processo
     trechos_filtrados = filtrar_trechos_associados(arquivo_txt, associacoes)
 
-->Como exportar uma lista para uma planilha de Excel sendo cada item uma linha
+->Python:Como exportar uma lista para uma planilha de Excel sendo cada item uma linha
 
 import openpyxl
 
@@ -146,3 +146,8 @@ if __name__ == "__main__":
     exportar_para_planilha(trechos_filtrados, arquivo_excel)
 
     print("Processo concluído! Os trechos filtrados foram exportados para o Excel.")
+
+->SQL:Como contar quantas linhas tem de cada status
+SELECT status, COUNT(*) AS quantidade
+FROM sua_tabela
+GROUP BY status;
