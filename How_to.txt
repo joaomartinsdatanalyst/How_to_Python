@@ -151,3 +151,21 @@ if __name__ == "__main__":
 SELECT status, COUNT(*) AS quantidade
 FROM sua_tabela
 GROUP BY status;
+
+->Python: Como iterar um dataframe
+for index, row in df.iterrows():
+    print(f"Índice: {index}, Nome: {row['Nome']})
+
+->Python: Como deletar colunas específicas de um dataframe?
+df = df.drop(columns=['Idade', 'Cidade'])
+
+->SQL: Como visualizar os tipos de dados de cada coluna
+PRAGMA table_info(nome_da_tabela);
+
+->Python: Alterar tipo de dados em uma dataframe
+df = df.astype({'coluna1': 'int', 'coluna2': 'float'})
+
+->SQL: Alterar valor de um registro
+UPDATE nome_da_tabela
+SET nome_da_coluna = novo_valor
+WHERE condicao;
