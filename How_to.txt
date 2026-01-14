@@ -169,3 +169,21 @@ df = df.astype({'coluna1': 'int', 'coluna2': 'float'})
 UPDATE nome_da_tabela
 SET nome_da_coluna = novo_valor
 WHERE condicao;
+
+->Python: Como listar os arquivos de uma pasta
+import os
+# Caminho do diretório que você deseja listar
+diretorio = "/caminho/do/diretorio"
+# Lista apenas os arquivos no diretório
+arquivos = [f for f in os.listdir(diretorio) if os.path.isfile(os.path.join(diretorio, f))]
+
+->Python: Como determinar a data de hoje no formato yyyy-mm-dd
+from datetime import date
+# Obtém a data de hoje
+data_hoje = date.today()
+# Formata a data no formato yyyy-mm-dd
+data_formatada = data_hoje.strftime("%Y-%m-%d")
+print("Data de hoje:", data_formatada)
+
+->Python: Como tirar extensão de um arquivo
+os.path.splitext(arquivo)[0]
